@@ -16,7 +16,7 @@ namespace LinqQuiz.Library
         /// </exception>
         public static int[] GetEvenNumbers(int exclusiveUpperLimit)
         {
-            throw new NotImplementedException();
+            return((from num in (Enumerable.Range(1, exclusiveUpperLimit - 1).ToArray()) where (num % 2) == 0 select num).ToArray());
         }
 
         /// <summary>
@@ -33,7 +33,19 @@ namespace LinqQuiz.Library
         /// </remarks>
         public static int[] GetSquares(int exclusiveUpperLimit)
         {
-            throw new NotImplementedException();
+            if(exclusiveUpperLimit > 1)
+            {
+                checked
+                {
+                    return ((from num in (Enumerable.Range(1, exclusiveUpperLimit - 1).ToArray()) where (num * num) % 7 == 0 orderby num descending select num * num).ToArray());
+                }
+            }
+            else
+            {
+                return new int[0];
+            }
+
+           
         }
 
         /// <summary>
@@ -52,7 +64,23 @@ namespace LinqQuiz.Library
         /// </remarks>
         public static FamilySummary[] GetFamilyStatistic(IReadOnlyCollection<IFamily> families)
         {
-            throw new NotImplementedException();
+            if (families == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            List<FamilySummary> sol = new List<FamilySummary>();
+            foreach (var family in families)
+            {
+                sol.Add(new FamilySummary
+                {
+                    AverageAge = family.Persons.Count == 0 ? 0 : family.Persons.Average(p => p.Age),
+                    FamilyID = family.ID,
+                    NumberOfFamilyMembers = family.Persons.Count
+                });
+            }
+
+            return sol.ToArray();
         }
 
         /// <summary>
@@ -70,7 +98,20 @@ namespace LinqQuiz.Library
         /// </remarks>
         public static (char letter, int numberOfOccurrences)[] GetLetterStatistic(string text)
         {
-            throw new NotImplementedException();
+            char[] textLetters = text.ToUpper().ToCharArray();
+            List<int> letters = Enumerable.Range('A', 'Z').ToList(); //integers sind = chars
+            List<(char letter, int numberOfOccurrences)> sol = new List<(char letter, int numberOfOccurrences)>();
+
+            foreach (var letter in letters)
+            {
+                var count = textLetters.Count(l => l == letter);
+                if (count > 0)
+                {
+                    sol.Add(((char)letter, count));
+                }
+            }
+
+            return sol.ToArray(); //Ein eigenes Objekt mit char und int
         }
     }
 }

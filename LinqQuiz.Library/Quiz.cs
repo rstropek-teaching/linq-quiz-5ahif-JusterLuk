@@ -16,6 +16,7 @@ namespace LinqQuiz.Library
         /// </exception>
         public static int[] GetEvenNumbers(int exclusiveUpperLimit)
         {
+            // Why do you need the first `.ToArray()`?
             return((from num in (Enumerable.Range(1, exclusiveUpperLimit - 1).ToArray()) where (num % 2) == 0 select num).ToArray());
         }
 
@@ -69,6 +70,9 @@ namespace LinqQuiz.Library
                 throw new ArgumentNullException();
             }
 
+            // In such cases, it is recommended to use `var` in the variable declaration. The type
+            // is obvious because you can see it on the right side of the assignment -> no need
+            // to repeat it on the left side.
             List<FamilySummary> sol = new List<FamilySummary>();
             foreach (var family in families)
             {
@@ -80,6 +84,9 @@ namespace LinqQuiz.Library
                 });
             }
 
+            // You have to return an array. You know the size of the array (=size of `families`). Why not
+            // using an array instead of `List<T>` for `sol`? That would save you from having to call
+            // `ToArray` at the end?
             return sol.ToArray();
         }
 
@@ -98,6 +105,7 @@ namespace LinqQuiz.Library
         /// </remarks>
         public static (char letter, int numberOfOccurrences)[] GetLetterStatistic(string text)
         {
+            // Same as above: Prefer `var`
             char[] textLetters = text.ToUpper().ToCharArray();
             List<int> letters = Enumerable.Range('A', 'Z').ToList(); //integers sind = chars
             List<(char letter, int numberOfOccurrences)> sol = new List<(char letter, int numberOfOccurrences)>();

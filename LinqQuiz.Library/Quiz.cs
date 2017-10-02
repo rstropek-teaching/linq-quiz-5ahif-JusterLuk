@@ -17,7 +17,7 @@ namespace LinqQuiz.Library
         public static int[] GetEvenNumbers(int exclusiveUpperLimit)
         {
             // Why do you need the first `.ToArray()`?
-            return((from num in (Enumerable.Range(1, exclusiveUpperLimit - 1).ToArray()) where (num % 2) == 0 select num).ToArray());
+            return((from num in (Enumerable.Range(1, exclusiveUpperLimit - 1)) where (num % 2) == 0 select num).ToArray());
         }
 
         /// <summary>

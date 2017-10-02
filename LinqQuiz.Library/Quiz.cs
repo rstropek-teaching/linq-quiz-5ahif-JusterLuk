@@ -107,7 +107,7 @@ namespace LinqQuiz.Library
         {
             // Same as above: Prefer `var`
             char[] textLetters = text.ToUpper().ToCharArray();
-            List<int> letters = Enumerable.Range('A', 'Z').ToList(); //integers sind = chars
+            List<int> letters = Enumerable.Range('A', 'Z').ToList(); 
             List<(char letter, int numberOfOccurrences)> sol = new List<(char letter, int numberOfOccurrences)>();
 
             foreach (var letter in letters)
@@ -118,8 +118,7 @@ namespace LinqQuiz.Library
                     sol.Add(((char)letter, count));
                 }
             }
-
-            return sol.ToArray(); //Ein eigenes Objekt mit char und int
+            return sol.ToArray(); 
         }
     }
 }
